@@ -14,7 +14,7 @@ import phattrienungdungvoij2ee.bai5_qlsp_jpa.service.DichvuService;
 @RequestMapping("/services")
 public class DichvuController {
 
-    @Autowired
+    @Autowired//
     private DichvuService dichvuService;
 
     @Autowired
