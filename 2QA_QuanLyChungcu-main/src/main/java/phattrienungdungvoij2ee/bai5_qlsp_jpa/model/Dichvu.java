@@ -23,6 +23,22 @@ public class Dichvu {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "provider", length = 150)
+    private String provider;
+
+    @Column(name = "unit", length = 50)
+    private String unit;
+
+    @Column(name = "cost_type", length = 50)
+    private String costType;
+
+    @Column(name = "cost_value", precision = 15, scale = 2)
+    private BigDecimal costValue;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category_Dichvu category;
+
     @NotNull(message = "Gia khong duoc de trong")
     @DecimalMin(value = "0.0", message = "Gia phai lon hon hoac bang 0")
     @Column(nullable = false, precision = 15, scale = 2)

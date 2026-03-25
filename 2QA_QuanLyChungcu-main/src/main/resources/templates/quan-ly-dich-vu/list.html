@@ -33,6 +33,11 @@
                 <tr>
                     <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">HINH ANH</th>
                     <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">TEN DICH VU</th>
+                    <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">NHOM</th>
+                    <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">NHA CUNG CAP</th>
+                    <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">DON VI</th>
+                    <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">LOAI PHI</th>
+                    <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">DON GIA</th>
                     <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">MO TA</th>
                     <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem;">GIA (VND)</th>
                     <th style="padding:14px 16px; font-weight:600; color:#64748b; font-size:0.85rem; text-align:center;">THAO TAC</th>
@@ -48,6 +53,19 @@
                         </div>
                     </td>
                     <td style="padding:12px 16px; font-weight:600;" th:text="${service.name}"></td>
+                    <td style="padding:12px 16px;" th:text="${service.category != null ? service.category.name : '-'}"></td>
+                    <td style="padding:12px 16px;" th:text="${service.provider != null and !#strings.isEmpty(service.provider) ? service.provider : '-'}"></td>
+                    <td style="padding:12px 16px;" th:text="${service.unit != null and !#strings.isEmpty(service.unit) ? service.unit : '-'}"></td>
+                    <td style="padding:12px 16px;">
+                        <span th:switch="${service.costType}">
+                            <span th:case="'CO_DINH'">Co dinh</span>
+                            <span th:case="'THEO_SO_LUONG'">Theo so luong</span>
+                            <span th:case="'THEO_DIEN_TICH'">Theo dien tich</span>
+                            <span th:case="*">-</span>
+                        </span>
+                    </td>
+                    <td style="padding:12px 16px;"
+                        th:text="${service.costValue != null ? (#numbers.formatDecimal(service.costValue, 0, 'COMMA', 0, 'POINT') + ' VND') : '-'}"></td>
                     <td style="padding:12px 16px; color:#64748b; font-size:0.9rem; max-width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" th:text="${service.description}"></td>
                     <td style="padding:12px 16px; font-weight:600; color:#059669;" th:text="${#numbers.formatDecimal(service.price, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
                     <td style="padding:12px 16px; text-align:center;">
@@ -66,7 +84,7 @@
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(services)}">
-                    <td colspan="5" class="text-center py-5" style="color:#94a3b8;">
+                    <td colspan="11" class="text-center py-5" style="color:#94a3b8;">
                         <i class="bi bi-inbox" style="font-size:2rem;"></i>
                         <p class="mt-2 mb-0">Chua co dich vu nao</p>
                     </td>

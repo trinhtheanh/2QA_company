@@ -9,6 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.model.Dichvu;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.model.Payment;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.model.Subscription;
+import phattrienungdungvoij2ee.bai5_qlsp_jpa.model.Category_Dichvu;
+import phattrienungdungvoij2ee.bai5_qlsp_jpa.service.CategoryDichvuService;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.service.DichvuServiceImpl;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.service.PaymentService;
 import phattrienungdungvoij2ee.bai5_qlsp_jpa.service.SubscriptionService;
@@ -30,6 +32,9 @@ public class ServiceManagementController {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private CategoryDichvuService categoryDichvuService;
+
     // ===== DANH SACH DICH VU (ADMIN) =====
     @GetMapping
     public String listServices(Model model) {
@@ -40,7 +45,10 @@ public class ServiceManagementController {
     // ===== FORM THEM DICH VU =====
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("service", new Dichvu());
+        Dichvu service = new Dichvu();
+        service.setCategory(new Category_Dichvu());
+        model.addAttribute("service", service);
+        model.addAttribute("categories", categoryDichvuService.getAllCategories());
         return "quan-ly-dich-vu/add";
     }
 
@@ -74,7 +82,11 @@ public class ServiceManagementController {
             redirectAttributes.addFlashAttribute("errorMsg", "Khong tim thay dich vu!");
             return "redirect:/quan-ly-dich-vu";
         }
+        if (service.getCategory() == null) {
+            service.setCategory(new Category_Dichvu());
+        }
         model.addAttribute("service", service);
+        model.addAttribute("categories", categoryDichvuService.getAllCategories());
         return "quan-ly-dich-vu/edit";
     }
 
