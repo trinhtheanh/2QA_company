@@ -45,6 +45,12 @@
           enctype="multipart/form-data" class="form">
         <input type="hidden" th:field="*{id}"/>
 
+        <div class="form-group mb-3">
+            <label for="maChungCu"><strong>Mã căn hộ (maChungCu):</strong></label>
+            <input class="form-control" type="text" th:field="*{maChungCu}" id="maChungCu"
+                   placeholder="VD: 101, A101, CH-203..." maxlength="50">
+        </div>
+
         <div class="form-group">
             <label for="name">Ten chung cu:</label>
             <input class="form-control" type="text" th:field="*{name}" id="name">

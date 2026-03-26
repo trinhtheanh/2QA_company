@@ -107,6 +107,11 @@
                 <small style="color:#64748b;font-size:12px;margin-top:4px;">Nhap dung ID chung cu (xem trong danh sach chung cu) de lien ket tai khoan.</small>
             </div>
 
+            <div class="input-group" id="room-group" style="display:none;">
+                <label for="register-room">Ma phong/cua so</label>
+                <input id="register-room" type="text" name="room" placeholder="VD: A1-102">
+            </div>
+
             <button type="submit">Dang ky</button>
         </form>
     </div>
@@ -119,11 +124,15 @@
     function toggleChungCuId() {
         var role = document.getElementById('register-role').value;
         var group = document.getElementById('chungCuId-group');
+        var roomGroup = document.getElementById('room-group');
         if (role === 'ROLE_USER') {
             group.style.display = 'block';
+            roomGroup.style.display = 'block';
         } else {
             group.style.display = 'none';
+            roomGroup.style.display = 'none';
             document.getElementById('register-chungcuid').value = '';
+            document.getElementById('register-room').value = '';
         }
     }
     // Goi khi trang load lan dau

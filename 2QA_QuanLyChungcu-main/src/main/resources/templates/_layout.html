@@ -253,6 +253,12 @@
                     <i class="bi bi-gear-wide-connected"></i> Quan ly DV
                 </a>
             </li>
+
+            <li class="nav-item-tab" sec:authorize="hasAnyRole('ADMIN','MANAGER')">
+                <a class="nav-link-tab" th:href="@{/hoa-don/admin}" style="color:#059669;">
+                    <i class="bi bi-clipboard-check"></i> Theo doi thanh toan
+                </a>
+            </li>
             <li class="nav-item-tab">
                 <a class="nav-link-tab" th:href="@{/dich-vu}">
                     <i class="bi bi-grid-3x3-gap-fill"></i> Dich vu
@@ -261,6 +267,12 @@
             <li class="nav-item-tab" sec:authorize="hasAnyRole('USER','MANAGER')">
                 <a class="nav-link-tab" th:href="@{/dich-vu/my-subscriptions}">
                     <i class="bi bi-bookmark-star-fill"></i> Dang ky DV
+                </a>
+            </li>
+
+            <li class="nav-item-tab" sec:authorize="hasAnyRole('USER','MANAGER')">
+                <a class="nav-link-tab" th:href="@{/hoa-don}">
+                    <i class="bi bi-receipt me-1"></i> Hoa don
                 </a>
             </li>
 

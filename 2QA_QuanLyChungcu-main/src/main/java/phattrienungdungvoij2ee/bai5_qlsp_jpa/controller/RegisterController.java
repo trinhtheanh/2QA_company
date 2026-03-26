@@ -37,6 +37,7 @@ public class RegisterController {
             @RequestParam("confirmPassword") String confirmPassword,
             @RequestParam("role") String roleName,
             @RequestParam(value = "chungCuId", required = false) Long chungCuId,
+            @RequestParam(value = "room", required = false) String room,
             RedirectAttributes redirectAttributes
     ) {
         if (!password.equals(confirmPassword)) {
@@ -70,9 +71,12 @@ public class RegisterController {
                 Optional<ChungCu> chungCuOpt = chungCuRepository.findById(chungCuId);
                 if (chungCuOpt.isPresent()) {
                     account.setChungCu(chungCuOpt.get());
+                    if (room != null && !room.trim().isEmpty()) {
+                        account.setRoom(room.trim());
+                    }
                 } else {
                     redirectAttributes.addFlashAttribute("registerError",
-                            "Ma chung cu '" + chungCuId + "' khong ton tai! Vui long kiem tra lai.");
+                            String.format("Ma chung cu '%s' khong ton tai! Vui long kiem tra lai.", chungCuId));
                     redirectAttributes.addFlashAttribute("openRegister", true);
                     return "redirect:/login";
                 }
@@ -81,7 +85,10 @@ public class RegisterController {
             accountRepository.save(account);
             redirectAttributes.addFlashAttribute("registerSuccess", "Dang ky thanh cong! Vui long dang nhap.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("registerError", "Luu that bai: " + e.getMessage());
+            redirectAttributes.addFlashAttribute(
+                    "registerError",
+                    String.format("Luu that bai: %s", e.getMessage())
+            );
             redirectAttributes.addFlashAttribute("openRegister", true);
         }
 
