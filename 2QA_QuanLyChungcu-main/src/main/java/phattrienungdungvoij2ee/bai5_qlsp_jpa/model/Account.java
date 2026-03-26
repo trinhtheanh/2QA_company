@@ -27,4 +27,8 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "chungcu_id", nullable = true)
     private ChungCu chungCu;
+
+    // Ma so phong/cua so (vi du: A1-102) de gan cu dan voi vi tri cu tru
+    @Column(name = "room", length = 50)
+    private String room;
 }

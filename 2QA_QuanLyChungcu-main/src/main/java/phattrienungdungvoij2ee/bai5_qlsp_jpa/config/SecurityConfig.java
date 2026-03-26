@@ -88,7 +88,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/register", "/debug", "/css/**", "/js/**", "/uploads/**", "/images/**").permitAll()
+                        .requestMatchers("/login", "/register", "/debug", "/css/**", "/js/**", "/uploads/**", "/images/**", "/qr/**").permitAll()
                         .requestMatchers("/thongbao/xem").hasAnyRole("USER", "ADMIN", "MANAGER")
                         .requestMatchers("/thongbao", "/thongbao/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers("/tintuc", "/tintuc/**").hasAnyRole("USER", "ADMIN", "MANAGER")
@@ -96,6 +96,8 @@ public class SecurityConfig {
                         .requestMatchers("/Apartments/**", "/categories/**", "/services/**", "/service-categories/**").hasRole("ADMIN")
                         .requestMatchers("/quan-ly-dich-vu/**").hasRole("ADMIN")
                         .requestMatchers("/dich-vu/**").hasAnyRole("USER", "ADMIN", "MANAGER")
+                        .requestMatchers("/hoa-don/admin/**", "/hoa-don/admin").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers("/hoa-don/**").hasAnyRole("USER", "ADMIN", "MANAGER")
                         .anyRequest().authenticated()
                 )
                 // Cho phép form login nội bộ
@@ -116,7 +118,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout=true")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/register", "/quan-ly-dich-vu/**", "/dich-vu/**"));
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/register", "/quan-ly-dich-vu/**", "/dich-vu/**", "/hoa-don/**"));
 
         return http.build();
     }
